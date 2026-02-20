@@ -20,8 +20,9 @@ const List = () => {
       try {
         const data = await fetchEmployeeData();
 
+        console.log("API RESPONSE:", data);
         // Assuming API returns array of employees
-        setEmployees(data);
+        setEmployees(data.TABLE_DATA.data);
       } catch (err) {
         setError("Failed to fetch employee data.");
       } finally {
