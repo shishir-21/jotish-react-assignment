@@ -3,93 +3,110 @@ import { useNavigate } from "react-router-dom";
 import { fetchEmployeeData } from "../services/api";
 
 const List = () => {
-  // State to store employee data
-  const [employees, setEmployees] = useState([]);
+    // State to store employee data
+    const [employees, setEmployees] = useState([]);
 
-  // State to manage loading indicator
-  const [loading, setLoading] = useState(true);
+    // State to manage loading indicator
+    const [loading, setLoading] = useState(true);
 
-  // State to manage API error
-  const [error, setError] = useState("");
+    // State to manage API error
+    const [error, setError] = useState("");
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  // Fetch data when component loads
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await fetchEmployeeData();
+    // Fetch data when component loads
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const data = await fetchEmployeeData();
 
-        console.log("API RESPONSE:", data);
-        // Assuming API returns array of employees
-        setEmployees(data.TABLE_DATA.data);
-      } catch (err) {
-        setError("Failed to fetch employee data.");
-      } finally {
-        setLoading(false);
-      }
-    };
+                console.log("FULL API RESPONSE:", data);
 
-    getData();
-  }, []);
+                /*
+                  API structure is nested.
+                  We safely extract the employee array from TABLE_DATA.data
+                */
+                if (
+                    data &&
+                    data.TABLE_DATA &&
+                    Array.isArray(data.TABLE_DATA.data)
+                ) {
+                    setEmployees(data.TABLE_DATA.data);
+                } else {
+                    setEmployees([]);
+                }
 
-  // Show loading message
-  if (loading) return <h3>Loading data...</h3>;
+            } catch (err) {
+                setError("Failed to fetch employee data.");
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  // Show error message if API fails
-  if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
+        getData();
+    }, []);
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>Employee List</h2>
+    // Show loading message
+    if (loading) return <h3>Loading data...</h3>;
 
-      <table border="1" cellPadding="10" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+    // Show error message if API fails
+    if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
 
-        <tbody>
-          {employees.map((emp, index) => (
-            <tr key={index}>
-              <td>{emp.id}</td>
-              <td>{emp.name}</td>
-              <td>{emp.email}</td>
+    return (
+        <div style={{ padding: "20px" }}>
+            <h2>Employee List</h2>
 
-              <td>
-                {/* Navigate to details page */}
-                <button
-                  onClick={() =>
-                    navigate(`/details/${emp.id}`, { state: emp })
-                  }
-                >
-                  View Details
+            <table border="1" cellPadding="10" cellSpacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {employees.map((emp, index) => (
+                        <tr key={index}>
+                            {/* ID is at index 3 */}
+                            <td>{emp[3]}</td>
+
+                            {/* Name is at index 0 */}
+                            <td>{emp[0]}</td>
+
+                            {/* No email in API, so we can show position instead */}
+                            <td>{emp[1]}</td>
+
+                            <td>
+                                <button
+                                    onClick={() =>
+                                        navigate(`/details/${emp[3]}`, { state: emp })
+                                    }
+                                >
+                                    View Details
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            {/* Navigation Buttons for Creativity Section */}
+            <div style={{ marginTop: "20px" }}>
+                <button onClick={() => navigate("/chart")}>
+                    View Salary Chart
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      {/* Navigation Buttons for Creativity Section */}
-      <div style={{ marginTop: "20px" }}>
-        <button onClick={() => navigate("/chart")}>
-          View Salary Chart
-        </button>
-
-        <button
-          style={{ marginLeft: "10px" }}
-          onClick={() => navigate("/map")}
-        >
-          View City Map
-        </button>
-      </div>
-    </div>
-  );
+                <button
+                    style={{ marginLeft: "10px" }}
+                    onClick={() => navigate("/map")}
+                >
+                    View City Map
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default List;
