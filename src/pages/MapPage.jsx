@@ -1,3 +1,4 @@
+import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
@@ -44,52 +45,57 @@ const MapPage = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Employee City Map</h2>
+    <>
+      <Navbar />
+      <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px" }}>
+          <h2>Employee City Map</h2>
 
-      <MapContainer
-        center={[20, 0]}
-        zoom={2}
-        style={{ height: "500px", width: "100%" }}
-      >
-        <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+          <MapContainer
+            center={[20, 0]}
+            zoom={2}
+            style={{ height: "500px", width: "100%" }}
+          >
+            <TileLayer
+              attribution='&copy; OpenStreetMap contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
 
-        {employees.map((emp, index) => {
-          const city = emp[2]; // City at index 2
-          const coords = cityCoordinates[city];
+            {employees.map((emp, index) => {
+              const city = emp[2]; // City at index 2
+              const coords = cityCoordinates[city];
 
-          if (!coords) return null;
+              if (!coords) return null;
 
-          return (
-            <Marker key={index} position={coords}>
-              <Popup>
-                <strong>{emp[0]}</strong> <br />
-                {emp[1]} <br />
-                {city}
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
+              return (
+                <Marker key={index} position={coords}>
+                  <Popup>
+                    <strong>{emp[0]}</strong> <br />
+                    {emp[1]} <br />
+                    {city}
+                  </Popup>
+                </Marker>
+              );
+            })}
+          </MapContainer>
 
-      <button
-        style={{
-          marginTop: "20px",
-          padding: "8px 12px",
-          backgroundColor: "black",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-        onClick={() => navigate("/list")}
-      >
-        Back to List
-      </button>
-    </div>
+          <button
+            style={{
+              marginTop: "20px",
+              padding: "8px 12px",
+              backgroundColor: "black",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/list")}
+          >
+            Back to List
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

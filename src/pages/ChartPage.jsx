@@ -1,3 +1,4 @@
+import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useNavigate } from "react-router-dom";
@@ -68,26 +69,32 @@ const ChartPage = () => {
   if (!chartData) return <h3>Loading Chart...</h3>;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Top 10 Employee Salaries</h2>
+    <>
+      <Navbar />
+      <div style={{ padding: "20px" }}>
+        ...
+        <div style={{ padding: "20px" }}>
+          <h2>Top 10 Employee Salaries</h2>
 
-      <Bar data={chartData} />
+          <Bar data={chartData} />
 
-      <button
-        style={{
-          marginTop: "20px",
-          padding: "8px 12px",
-          backgroundColor: "black",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-        onClick={() => navigate("/list")}
-      >
-        Back to List
-      </button>
-    </div>
+          <button
+            style={{
+              marginTop: "20px",
+              padding: "8px 12px",
+              backgroundColor: "black",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/list")}
+          >
+            Back to List
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

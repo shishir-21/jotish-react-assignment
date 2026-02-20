@@ -1,3 +1,4 @@
+import Navbar from "../components/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
@@ -38,60 +39,65 @@ const Details = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Employee Details</h2>
+    <>
+      <Navbar />
+      <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px" }}>
+          <h2>Employee Details</h2>
 
-      <div style={styles.card}>
-        <p><strong>Name:</strong> {employee[0]}</p>
-        <p><strong>Position:</strong> {employee[1]}</p>
-        <p><strong>City:</strong> {employee[2]}</p>
-        <p><strong>Employee ID:</strong> {employee[3]}</p>
-        <p><strong>Joining Date:</strong> {employee[4]}</p>
-        <p><strong>Salary:</strong> {employee[5]}</p>
+          <div style={styles.card}>
+            <p><strong>Name:</strong> {employee[0]}</p>
+            <p><strong>Position:</strong> {employee[1]}</p>
+            <p><strong>City:</strong> {employee[2]}</p>
+            <p><strong>Employee ID:</strong> {employee[3]}</p>
+            <p><strong>Joining Date:</strong> {employee[4]}</p>
+            <p><strong>Salary:</strong> {employee[5]}</p>
 
-        {/* Toggle Camera */}
-        {!showCamera ? (
-          <button
-            style={styles.button}
-            onClick={() => setShowCamera(true)}
-          >
-            Open Camera
-          </button>
-        ) : (
-          <>
-            {/* Webcam Component */}
-            <Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              width={300}
-            />
+            {/* Toggle Camera */}
+            {!showCamera ? (
+              <button
+                style={styles.button}
+                onClick={() => setShowCamera(true)}
+              >
+                Open Camera
+              </button>
+            ) : (
+              <>
+                {/* Webcam Component */}
+                <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  width={300}
+                />
+
+                <br />
+
+                <button style={styles.button} onClick={capturePhoto}>
+                  Capture Photo
+                </button>
+
+                <button
+                  style={{ ...styles.button, backgroundColor: "gray", marginLeft: "10px" }}
+                  onClick={() => setShowCamera(false)}
+                >
+                  Close Camera
+                </button>
+              </>
+            )}
 
             <br />
 
-            <button style={styles.button} onClick={capturePhoto}>
-              Capture Photo
-            </button>
-
             <button
-              style={{ ...styles.button, backgroundColor: "gray", marginLeft: "10px" }}
-              onClick={() => setShowCamera(false)}
+              style={{ ...styles.button, backgroundColor: "black" }}
+              onClick={() => navigate("/list")}
             >
-              Close Camera
+              Back to List
             </button>
-          </>
-        )}
-
-        <br />
-
-        <button
-          style={{ ...styles.button, backgroundColor: "black" }}
-          onClick={() => navigate("/list")}
-        >
-          Back to List
-        </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

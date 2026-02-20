@@ -1,3 +1,4 @@
+import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchEmployeeData } from "../services/api";
@@ -53,59 +54,57 @@ const List = () => {
     if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h2>Employee List</h2>
+        <>
+            <Navbar />
 
-            <table border="1" cellPadding="10" cellSpacing="0">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+            <div style={{ padding: "20px" }}>
+                <h2>Employee List</h2>
 
-                <tbody>
-                    {employees.map((emp, index) => (
-                        <tr key={index}>
-                            {/* ID is at index 3 */}
-                            <td>{emp[3]}</td>
-
-                            {/* Name is at index 0 */}
-                            <td>{emp[0]}</td>
-
-                            {/* No email in API, so we can show position instead */}
-                            <td>{emp[1]}</td>
-
-                            <td>
-                                <button
-                                    onClick={() =>
-                                        navigate(`/details/${emp[3]}`, { state: emp })
-                                    }
-                                >
-                                    View Details
-                                </button>
-                            </td>
+                <table border="1" cellPadding="10" cellSpacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
 
-            {/* Navigation Buttons for Creativity Section */}
-            <div style={{ marginTop: "20px" }}>
-                <button onClick={() => navigate("/chart")}>
-                    View Salary Chart
-                </button>
+                    <tbody>
+                        {employees.map((emp, index) => (
+                            <tr key={index}>
+                                <td>{emp[3]}</td>
+                                <td>{emp[0]}</td>
+                                <td>{emp[1]}</td>
 
-                <button
-                    style={{ marginLeft: "10px" }}
-                    onClick={() => navigate("/map")}
-                >
-                    View City Map
-                </button>
+                                <td>
+                                    <button
+                                        onClick={() =>
+                                            navigate(`/details/${emp[3]}`, { state: emp })
+                                        }
+                                    >
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                <div style={{ marginTop: "20px" }}>
+                    <button onClick={() => navigate("/chart")}>
+                        View Salary Chart
+                    </button>
+
+                    <button
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => navigate("/map")}
+                    >
+                        View City Map
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
