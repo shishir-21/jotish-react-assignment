@@ -1,13 +1,20 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import Webcam from "react-webcam";
 
 const Details = () => {
-  // Get employee data passed via navigation
   const location = useLocation();
   const navigate = useNavigate();
 
   const employee = location.state;
 
-  // If user refreshes page and no state exists
+  // Reference for webcam
+  const webcamRef = useRef(null);
+
+  // State to control camera visibility
+  const [showCamera, setShowCamera] = useState(false);
+
+  // If no employee data found
   if (!employee) {
     return <h3>No employee data found.</h3>;
   }
@@ -22,6 +29,14 @@ const Details = () => {
     [5] → Salary
   */
 
+  // Function to capture image
+  const capturePhoto = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+
+    // Navigate to photo result page with image
+    navigate("/photo-result", { state: imageSrc });
+  };
+
   return (
     <div style={{ padding: "20px" }}>
       <h2>Employee Details</h2>
@@ -34,17 +49,43 @@ const Details = () => {
         <p><strong>Joining Date:</strong> {employee[4]}</p>
         <p><strong>Salary:</strong> {employee[5]}</p>
 
-        {/* Button to capture photo */}
-        <button
-          style={styles.button}
-          onClick={() => navigate("/photo-result")}
-        >
-          Capture Photo
-        </button>
+        {/* Toggle Camera */}
+        {!showCamera ? (
+          <button
+            style={styles.button}
+            onClick={() => setShowCamera(true)}
+          >
+            Open Camera
+          </button>
+        ) : (
+          <>
+            {/* Webcam Component */}
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              width={300}
+            />
 
-        {/* Back Button */}
+            <br />
+
+            <button style={styles.button} onClick={capturePhoto}>
+              Capture Photo
+            </button>
+
+            <button
+              style={{ ...styles.button, backgroundColor: "gray", marginLeft: "10px" }}
+              onClick={() => setShowCamera(false)}
+            >
+              Close Camera
+            </button>
+          </>
+        )}
+
+        <br />
+
         <button
-          style={{ ...styles.button, backgroundColor: "gray", marginLeft: "10px" }}
+          style={{ ...styles.button, backgroundColor: "black" }}
           onClick={() => navigate("/list")}
         >
           Back to List
