@@ -2,7 +2,7 @@
 
 ## 🔐 Login Credentials
 Username: testuser 
-Password: 123456  
+Password: Test123 
 
 ---
 
@@ -56,11 +56,29 @@ Request Body:
 
 ---
 
-## 📸 Screenshots
+## 📸 Application Screenshots
 
-Screenshots are available in the /screenshots folder.
+### 🔐 Login Page
+![Login](screenshots/login.png)
 
----
+### 📋 Employee List
+![List](screenshots/list.png)
+![List](screenshots/list(1).png)
+
+### 👤 Details Page
+![Details](screenshots/details.png)
+
+### 📷 Camera
+![Camera](screenshots/camera.png)
+
+### 🖼 Captured Image
+![Captured](screenshots/captured.png)
+
+### 📊 Salary Chart
+![Chart](screenshots/chart.png)
+
+### 🗺 City Map
+![Map](screenshots/map.png)
 
 ## 🎥 Screen Recording
 
