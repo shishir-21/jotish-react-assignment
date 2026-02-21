@@ -2,8 +2,7 @@
 import axios from "axios";
 
 // Base API URL provided in assignment
-const API_URL = "https://backend.jotish.in/backend_dev/gettabledata.php";
-
+const API_URL = "/api/gettabledata";
 /**
  * Function to fetch employee data
  * Makes a POST request with required credentials
