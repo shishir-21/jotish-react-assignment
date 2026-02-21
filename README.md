@@ -1,5 +1,8 @@
 # Jotish ReactJS Internship Assignment
 
+## 🌐 Live Demo
+https://jotish-react-assignment.vercel.app
+
 ## 🔐 Login Credentials
 Username: testuser 
 Password: Test123 
@@ -36,8 +39,11 @@ The application includes:
 
 ## 📦 API Used
 
-POST Request:
+The application consumes data from:
+
 https://backend.jotish.in/backend_dev/gettabledata.php
+
+In production, a Vercel serverless function is used to handle API requests and resolve CORS issues.
 
 Request Body:
 {
@@ -82,7 +88,7 @@ Request Body:
 
 ## 🎥 Screen Recording
 
-[Click here to watch full demo][https://drive.google.com/file/d/1STFGpTnHWPy3JEUaiggJaKwt7cVNhrE1/view?usp=sharing]
+[Click here to watch full demo video](https://drive.google.com/file/d/1STFGpTnHWPy3JEUaiggJaKwt7cVNhrE1/view?usp=sharing)
 
 ---
 
