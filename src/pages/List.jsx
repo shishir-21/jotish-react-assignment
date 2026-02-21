@@ -51,16 +51,16 @@ const List = () => {
     if (loading) return <h3>Loading data...</h3>;
 
     // Show error message if API fails
-    if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
+    if (error) return( <h3 style={{ color: "red" }}>{error}</h3>);
 
     return (
         <>
             <Navbar />
 
             <div style={{ padding: "20px" }}>
-                <h2>Employee List</h2>
+                <h2>style={{marginBottom: "20px"}}Employee List</h2>
 
-                <table border="1" cellPadding="10" cellSpacing="0">
+                <table style={styles.table}>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -77,8 +77,9 @@ const List = () => {
                                 <td>{emp[0]}</td>
                                 <td>{emp[1]}</td>
 
-                                <td>
+                                <td style={styles.td}>
                                     <button
+                                        style={styles.button}
                                         onClick={() =>
                                             navigate(`/details/${emp[3]}`, { state: emp })
                                         }
@@ -92,12 +93,15 @@ const List = () => {
                 </table>
 
                 <div style={{ marginTop: "20px" }}>
-                    <button onClick={() => navigate("/chart")}>
+                    <button
+                        style={styles.secondaryButton} 
+                        onClick={() => navigate("/chart")}
+                    >
                         View Salary Chart
                     </button>
 
                     <button
-                        style={{ marginLeft: "10px" }}
+                        style={{ ...styles.secondaryButton, marginLeft: "10px" }}
                         onClick={() => navigate("/map")}
                     >
                         View City Map
@@ -106,6 +110,40 @@ const List = () => {
             </div>
         </>
     );
+};
+
+const styles = {
+  table: {
+    borderCollapse: "collapse",
+    width: "100%",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+  },
+  th: {
+    border: "1px solid #ddd",
+    padding: "12px",
+    backgroundColor: "#f5f5f5",
+    textAlign: "left",
+  },
+  td: {
+    border: "1px solid #ddd",
+    padding: "12px",
+  },
+  button: {
+    padding: "6px 12px",
+    backgroundColor: "#1976d2",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+    borderRadius: "4px",
+  },
+  secondaryButton: {
+    padding: "8px 14px",
+    backgroundColor: "#555",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+    borderRadius: "4px",
+  },
 };
 
 export default List;
