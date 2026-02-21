@@ -82,7 +82,7 @@ Request Body:
 
 ## 🎥 Screen Recording
 
-(Add your YouTube / Google Drive link here)
+[Click here to watch full demo][https://drive.google.com/file/d/1STFGpTnHWPy3JEUaiggJaKwt7cVNhrE1/view?usp=sharing]
 
 ---
 
