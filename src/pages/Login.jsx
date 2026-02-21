@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault(); // Prevent page reload
 
     // Validate credentials as per assignment requirement
-    if (username === "test" && password === "123456") {
+    if (username === "testuser" && password === "Test123") {
       setError("");
 
       // Store authentication flag in localStorage
